@@ -3,6 +3,7 @@ import javax.swing.*;
 void main() {
 
     Player player = SaveManager.loadPlayer("saves/player.csv");
+    Worker basicWorker = SaveManager.loadWorkers("saves/workers.csv");
 
     if (player == null) {
         player = new Player(
@@ -12,8 +13,11 @@ void main() {
                 0      // nbBasicWorker
         );
     }
+    if (basicWorker == null) {
+        basicWorker = new Worker(0.01,0.01,1);
+    }
     Player player1 = player;
-    Worker basicWorker = new Worker(0.01, 0.01, 1);
-    SwingUtilities.invokeLater(() -> new GameUI(player1, basicWorker));
+    Worker basicWorker1 = basicWorker;
+    SwingUtilities.invokeLater(() -> new GameUI(player1, basicWorker1));
 
 }

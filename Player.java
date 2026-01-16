@@ -47,12 +47,10 @@ public class Player {
         this.setMoney(this.getMoney() + this.getMoneyPerClick());
     }
     public void buyWorker(Worker worker){
-        if(this.getMoney() >= worker.getCost()){
-            this.setNbBasicWorker(this.getNbBasicWorker() + 1);
-            this.setMoneyPerSecond(this.getMoneyPerSecond() + worker.getMoneyPerSecond());
-            this.setMoneyPerClick(this.getMoneyPerClick() + worker.getMoneyPerClick());
-            this.setMoney(this.getMoney() - worker.getCost());
-        }
+        this.setNbBasicWorker(this.getNbBasicWorker() + 1);
+        this.setMoneyPerSecond(this.getMoneyPerSecond() + worker.getMoneyPerSecond());
+        this.setMoneyPerClick(this.getMoneyPerClick() + worker.getMoneyPerClick());
+        this.setMoney(this.getMoney() - worker.getCost());
     }
     public void addMoneyPerSecond() {
         this.setMoney(this.getMoney() + this.getMoneyPerSecond());

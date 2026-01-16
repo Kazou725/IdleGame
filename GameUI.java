@@ -50,6 +50,7 @@ public class GameUI extends JFrame {
             public void windowClosing(WindowEvent e) {
                 if (timer != null) timer.stop();
                 SaveManager.savePlayer(player1, "saves/player.csv");
+                SaveManager.saveWorkers(basicWorker, "saves/workers.csv");
                 dispose();
                 System.exit(0);
             }

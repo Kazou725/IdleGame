@@ -19,9 +19,15 @@ public class Employés extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
+        employéBaseDesc.setText(String.format("Cout : %.2f", basicWorker.getCost()));
+
         Engager.addActionListener(e ->{
-            player1.buyWorker(basicWorker);
-            basicWorker.setCost((basicWorker.getCost() * 0.7) + basicWorker.getCost());
+            if (player1.getMoney() >= basicWorker.getCost()) {
+                player1.buyWorker(basicWorker);
+                basicWorker.setCost((basicWorker.getCost() * 0.7) + basicWorker.getCost());
+                employéBaseDesc.setText(String.format("Cout : %.2f", basicWorker.getCost()));
+            }
+
         });
     }
 }

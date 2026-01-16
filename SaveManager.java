@@ -53,4 +53,46 @@ public class SaveManager {
             return null;
         }
     }
+
+    public static void saveWorkers(Worker basicWorker, String filePath) {
+        try {
+            Path path = Paths.get(filePath);
+            Files.createDirectories(path.getParent());
+
+            try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+                writer.write(HEADER);
+                writer.newLine();
+                writer.write(
+                        basicWorker.getMoneyPerSecond() + "," +
+                                basicWorker.getMoneyPerClick() + "," +
+                                basicWorker.getCost());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Erreur sauvegarde: " + e.getMessage());
+        }
+    }
+    public static Worker loadWorkers(String filePath) {
+        Path path = Paths.get(filePath);
+        if (!Files.exists(path)) return null;
+
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            reader.readLine(); // header
+            String line = reader.readLine();
+            if (line == null || line.isBlank()) return null;
+
+            String[] p = line.split(",");
+            if (p.length < 3) return null;
+
+            double mps = Double.parseDouble(p[0]);
+            double mpc = Double.parseDouble(p[1]);
+            double cost = Double.parseDouble(p[2]);
+
+            return new Worker(mps, mpc, cost);
+
+        } catch (Exception e) {
+            System.out.println("Erreur chargement: " + e.getMessage());
+            return null;
+        }
+    }
 }
