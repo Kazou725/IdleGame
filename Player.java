@@ -51,10 +51,24 @@ public class Player {
         this.setMoney(this.getMoney() + this.getMoneyPerClick());
     }
     public void buyWorker(Worker worker){
-        this.workers[0] = worker.getID();
-        this.setMoneyPerSecond(this.getMoneyPerSecond() + worker.getMoneyPerSecond());
-        this.setMoneyPerClick(this.getMoneyPerClick() + worker.getMoneyPerClick());
-        this.setMoney(this.getMoney() - worker.getCost());
+        if (this.workers[0] != worker.getID())
+        {
+            this.workers[0] = worker.getID();
+            this.setMoneyPerSecond(this.getMoneyPerSecond() + worker.getMoneyPerSecond());
+            this.setMoneyPerClick(this.getMoneyPerClick() + worker.getMoneyPerClick());
+            this.setMoney(this.getMoney() - worker.getCost());
+            worker.setCost((worker.getCost() * 0.5) + worker.getCost());
+        }
+        else if(this.workers[0] == 0){
+            if (worker.getOverall() < worker.getPotential())
+            {
+                worker.setOverall(worker.getOverall() + 1);
+                this.setMoney(this.getMoney() - worker.getCost());
+                this.setMoneyPerSecond(this.getMoneyPerSecond() + worker.getMoneyPerSecond());
+                this.setMoneyPerClick(this.getMoneyPerClick() + worker.getMoneyPerClick());
+                worker.setCost((worker.getCost() * 0.5) + worker.getCost());
+            }
+        }
     }
     public void addMoneyPerSecond() {
         this.setMoney(this.getMoney() + this.getMoneyPerSecond());
