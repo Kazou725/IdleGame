@@ -1,23 +1,18 @@
 import javax.swing.*;
 
-void main() {
+public class Main {
+    public static void main(String[] args) {
 
-    Player player = SaveManager.loadPlayer("saves/player.csv");
-    Worker basicWorker = SaveManager.loadWorkers("saves/workers.csv");
+        Worker[] allWorkers = WorkerLoader.loadWorkers("saves/workers.csv");
 
-    if (player == null) {
-        player = new Player(
-                0.0,   // money
-                0.01,  // moneyPerClick
-                0.0,   // moneyPerSecond
-                0      // nbBasicWorker
+        Player player = SaveManager.loadPlayer("saves/player.csv", allWorkers.length);
+        if (player == null) {
+            player = new Player(0.0, 0.01, 0.0, allWorkers.length);
+        }
+
+        Player finalPlayer = player;
+        SwingUtilities.invokeLater(() ->
+                new GameUI(finalPlayer, allWorkers)
         );
     }
-    if (basicWorker == null) {
-        basicWorker = new Worker(0.01,0.01,1);
-    }
-    Player player1 = player;
-    Worker basicWorker1 = basicWorker;
-    SwingUtilities.invokeLater(() -> new GameUI(player1, basicWorker1));
-
 }

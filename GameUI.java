@@ -10,12 +10,12 @@ public class GameUI extends JFrame {
     private JButton workerShop;
 
     private final Player player1;
-    private final Worker basicWorker;
+    private final Worker[] basicWorker;
     private Timer timer;
     private Timer frames;
 
 
-    public GameUI(Player player1, Worker basicWorker) {
+    public GameUI(Player player1, Worker[] basicWorker) {
         this.player1 = player1;
         this.basicWorker = basicWorker;
         setTitle("IdleGame");
@@ -50,7 +50,7 @@ public class GameUI extends JFrame {
             public void windowClosing(WindowEvent e) {
                 if (timer != null) timer.stop();
                 SaveManager.savePlayer(player1, "saves/player.csv");
-                SaveManager.saveWorkers(basicWorker, "saves/workers.csv");
+                SaveManager.saveWorkers(basicWorker[0], "saves/workers.csv");
                 dispose();
                 System.exit(0);
             }

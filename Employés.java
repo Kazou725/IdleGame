@@ -7,9 +7,9 @@ public class Employés extends JFrame {
     private JLabel employéBaseDesc;
 
     private final Player player1;
-    private final Worker basicWorker;
+    private final Worker[] basicWorker;
 
-    public Employés(Player player1, Worker basicWorker) {
+    public Employés(Player player1, Worker[] basicWorker) {
         this.player1 = player1;
         this.basicWorker = basicWorker;
         setTitle("IdleGame");
@@ -19,13 +19,13 @@ public class Employés extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        employéBaseDesc.setText(String.format("Cout : %.2f", basicWorker.getCost()));
+        employéBase.setText(basicWorker[0].getName() + " " + basicWorker[0].getLastName() + "Potentiel : " + basicWorker[0].getPotential() + "Overall : " + basicWorker[0].getOverall());
+        employéBaseDesc.setText(String.format("Cout : %.2f", basicWorker[0].getCost()));
 
         Engager.addActionListener(e ->{
-            if (player1.getMoney() >= basicWorker.getCost()) {
-                player1.buyWorker(basicWorker);
-                basicWorker.setCost((basicWorker.getCost() * 0.7) + basicWorker.getCost());
-                employéBaseDesc.setText(String.format("Cout : %.2f", basicWorker.getCost()));
+            if (player1.getMoney() >= basicWorker[0].getCost()) {
+                player1.buyWorker(basicWorker[0]);
+                employéBaseDesc.setText(String.format("Cout : %.2f", basicWorker[0].getCost()));
             }
 
         });

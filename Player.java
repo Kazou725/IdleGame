@@ -2,14 +2,14 @@ public class Player {
     private double money;
     private double moneyPerClick;
     private double moneyPerSecond;
-    private int nbBasicWorker;
+    private int[] workers;
 
-    public int getNbBasicWorker() {
-        return nbBasicWorker;
+    public int[] getWorkers() {
+        return workers;
     }
 
-    public void setNbBasicWorker(int nbBasicWorker) {
-        this.nbBasicWorker = nbBasicWorker;
+    public void setWorkers(int[] workers) {
+        workers = workers;
     }
 
     public double getMoney() {
@@ -36,23 +36,32 @@ public class Player {
         this.moneyPerSecond = moneyPerSecond;
     }
 
-    public Player(double money, double moneyPerClick, double moneyPerSecond, int nbBasicWorker) {
+    public Player(double money, double moneyPerClick, double moneyPerSecond, int[] workers) {
         this.money = money;
         this.moneyPerClick = moneyPerClick;
         this.moneyPerSecond = moneyPerSecond;
-        this.nbBasicWorker = nbBasicWorker;
+        this.workers = workers;
+    }
+
+    public Player(double money, double moneyPerClick, double moneyPerSecond, int workerCount) {
+        this(money, moneyPerClick, moneyPerSecond, new int[workerCount]);
     }
 
     public void addMoneyPerClick() {
         this.setMoney(this.getMoney() + this.getMoneyPerClick());
     }
     public void buyWorker(Worker worker){
-        this.setNbBasicWorker(this.getNbBasicWorker() + 1);
+        this.workers[0] = worker.getID();
         this.setMoneyPerSecond(this.getMoneyPerSecond() + worker.getMoneyPerSecond());
         this.setMoneyPerClick(this.getMoneyPerClick() + worker.getMoneyPerClick());
         this.setMoney(this.getMoney() - worker.getCost());
     }
     public void addMoneyPerSecond() {
         this.setMoney(this.getMoney() + this.getMoneyPerSecond());
+    }
+
+
+    public int getWorkerCount(int workerId) {
+        return workers[workerId];
     }
 }
